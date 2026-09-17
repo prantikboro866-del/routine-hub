@@ -1,0 +1,304 @@
+# 📝 Daily Routine Tracker
+
+A simple yet powerful web application to track your daily routines and build consistent habits.
+
+## 🌟 Features
+
+✅ **Create & Manage Routines** - Add routines with title, description, time, and category
+✅ **Track Completion** - Mark routines as complete and monitor progress
+✅ **Progress Analytics** - View statistics and trends over time
+✅ **Category Organization** - Organize routines by custom categories
+✅ **Responsive Design** - Works on desktop, tablet, and mobile devices
+✅ **Data Export** - Download your routines as JSON or CSV
+✅ **Local Storage** - 100% client-side storage (no server required for basic usage)
+✅ **Beautiful UI** - Dark theme with intuitive navigation
+
+## 📁 Project Structure
+
+```
+daily-routine-tracker/
+├── index.html           # Dashboard home page
+├── add-routine.html     # Create/edit routine page
+├── view-routines.html   # View all routines with filters
+├── track-progress.html  # Progress analytics page
+├── settings.html        # User settings and preferences
+├── styles.css          # Global styling (responsive design)
+├── script.js           # Frontend JavaScript logic
+├── api.php             # PHP API backend (optional)
+└── database.sql        # SQL database schema
+```
+
+## 🚀 Quick Start (Client-Side Only)
+
+### Option 1: No Installation Required
+
+1. **Download or clone the project files**
+2. **Open `index.html` in your web browser**
+3. **Start creating routines!**
+
+The app uses browser's local storage, so all data is saved locally on your device.
+
+### Option 2: With Local Server (Recommended for Development)
+
+#### Using Python:
+```bash
+# Python 3.x
+python -m http.server 8000
+
+# Python 2.x
+python -m SimpleHTTPServer 8000
+```
+
+Then open: `http://localhost:8000`
+
+#### Using Node.js (with http-server):
+```bash
+npm install -g http-server
+http-server
+```
+
+Then open: `http://localhost:8080`
+
+#### Using PHP:
+```bash
+php -S localhost:8000
+```
+
+Then open: `http://localhost:8000`
+
+## 🗄️ Database Setup (Optional - For Advanced Usage)
+
+If you want to use the MySQL backend with PHP API:
+
+### Prerequisites:
+- PHP 7.0+
+- MySQL/MariaDB 5.6+
+- Web server (Apache, Nginx)
+
+### Setup Steps:
+
+1. **Create Database:**
+   ```bash
+   mysql -u root -p
+   CREATE DATABASE routine_tracker;
+   USE routine_tracker;
+   SOURCE database.sql;
+   ```
+
+2. **Configure API Connection:**
+   Edit `api.php` and update database credentials:
+   ```php
+   $db_host = 'localhost';
+   $db_user = 'root';
+   $db_password = '';
+   $db_name = 'routine_tracker';
+   ```
+
+3. **Update JavaScript API Base:**
+   In `script.js`, update the API_BASE variable if needed:
+   ```javascript
+   const API_BASE = 'api.php';
+   ```
+
+4. **Place files in web root:**
+   - Copy all files to your web server directory
+   - Access via `http://localhost/routine-tracker`
+
+## 📖 How to Use
+
+### 1. **Create Your First Routine**
+   - Click "➕ Add Routine" in the sidebar
+   - Fill in the routine details:
+     - Title (required)
+     - Description
+     - Category
+     - Date (required)
+     - Time
+     - Frequency (once, daily, weekly, monthly)
+   - Click "Save Routine"
+
+### 2. **View & Manage Routines**
+   - Go to "📋 My Routines" to see all your routines
+   - Use filters to search by name, category, or status
+   - Mark routines as complete by clicking the "Mark Complete" button
+   - Edit or delete routines as needed
+
+### 3. **Track Your Progress**
+   - Visit "📊 Track Progress" to see analytics
+   - View completion rates, streaks, and trends
+   - Analyze performance by category
+   - Download reports as CSV
+
+### 4. **Customize Settings**
+   - Go to "⚙️ Settings" to manage preferences
+   - Update your name
+   - Change theme and appearance
+   - Configure notifications
+   - Export or import your data
+
+## 🎨 UI/UX Features
+
+- **Responsive Layout**: Sidebar navigation collapses on mobile
+- **Dark Theme**: Easy on the eyes, modern aesthetic
+- **Color Coding**: Categories and status indicators
+- **Interactive Cards**: Hover effects and smooth transitions
+- **Real-time Updates**: Instant feedback on actions
+- **Progress Visualization**: Charts and statistics
+
+## 💾 Data Management
+
+### Local Storage
+- Data stored in browser's localStorage
+- Persists across sessions
+- No external dependencies
+
+### Export Options
+- **JSON**: Full data backup for migration
+- **CSV**: Import into spreadsheets
+
+### Import
+- Upload JSON backups to restore data
+- Useful for transferring between devices
+
+## 🔒 Privacy & Security
+
+✅ **100% Local Storage** - No data sent to servers by default
+✅ **No Tracking** - Zero analytics or tracking
+✅ **Your Data** - You have complete control
+✅ **Offline-First** - Works without internet connection
+
+## 🔧 Database Schema Overview
+
+### Main Tables:
+- **users** - User accounts
+- **routines** - Routine definitions
+- **routine_completions** - Completion tracking
+- **categories** - Custom categories
+- **progress_stats** - Statistics and streaks
+- **user_preferences** - Settings and preferences
+
+### Helper Views:
+- `today_routines` - Quick access to today's tasks
+- `user_statistics` - User performance metrics
+- `weekly_progress` - Weekly completion tracking
+
+## 📱 Browser Compatibility
+
+✅ Chrome/Edge (Latest)
+✅ Firefox (Latest)
+✅ Safari (Latest)
+✅ Mobile browsers (iOS Safari, Chrome Mobile)
+
+## ⚙️ API Endpoints (Optional)
+
+### Users
+- `POST /api.php?endpoint=users&action=register` - Register new user
+- `POST /api.php?endpoint=users&action=login` - Login user
+- `GET /api.php?endpoint=users&id=1` - Get user info
+
+### Routines
+- `GET /api.php?endpoint=routines&action=list` - List routines
+- `POST /api.php?endpoint=routines&action=create` - Create routine
+- `PUT /api.php?endpoint=routines&action=update` - Update routine
+- `DELETE /api.php?endpoint=routines?id=1` - Delete routine
+
+### Statistics
+- `GET /api.php?endpoint=statistics&action=daily_stats` - Daily stats
+- `GET /api.php?endpoint=statistics&action=weekly_stats` - Weekly stats
+
+## 🐛 Troubleshooting
+
+### Data not saving?
+- Check browser's localStorage quota
+- Try clearing browser cache and cookies
+- Ensure JavaScript is enabled
+
+### API errors?
+- Verify PHP is running
+- Check database connection credentials
+- Ensure MySQL service is running
+
+### Performance issues?
+- Clear old/completed routines
+- Export and backup data
+- Use browser's developer tools to check for errors
+
+## 📝 Tips for Success
+
+💡 **Start Small** - Create 3-5 routines initially
+💡 **Be Consistent** - Set routines at the same time daily
+💡 **Review Weekly** - Check your progress every week
+💡 **Adjust as Needed** - Modify routines based on your lifestyle
+💡 **Build Habits** - Use the streak counter as motivation
+💡 **Track Everything** - Even small completions count!
+
+## 🔄 Recommended Routine Categories
+
+- 🏃 **Health & Fitness** - Exercise, stretching, walking
+- 💼 **Work & Productivity** - Focus sessions, breaks, reviews
+- 📚 **Learning** - Reading, courses, skill development
+- 🎨 **Personal Development** - Journaling, meditation, planning
+- 🧘 **Mindfulness** - Meditation, breathing, gratitude
+- 😴 **Self-Care** - Sleep, nutrition, hygiene
+
+## 📊 Sample Daily Routine
+
+```
+06:00 - Morning Meditation (Mindfulness)
+07:00 - Exercise (Health & Fitness)
+09:00 - Review Goals (Work & Productivity)
+12:00 - Lunch Break (Self-Care)
+13:00 - Deep Work Session (Work & Productivity)
+18:00 - Walk/Outdoor Time (Health & Fitness)
+20:00 - Read (Learning)
+22:00 - Journal (Personal Development)
+```
+
+## 🎯 Goal Setting Example
+
+```
+Daily: Complete 80% of routines
+Weekly: Maintain a 7-day streak
+Monthly: Achieve 100% completion rate
+```
+
+## 🚀 Future Enhancements
+
+- Push notifications for reminders
+- Habit stacking suggestions
+- Social sharing capabilities
+- Mobile app version
+- AI-powered insights
+- Calendar integration
+- Reminder scheduling
+- Custom tags and filters
+
+## 📄 License
+
+This project is open source and available for personal and commercial use.
+
+## 💬 Support & Feedback
+
+For issues, suggestions, or feedback:
+1. Check the help section in Settings
+2. Review the tips and tricks
+3. Try clearing data and starting fresh if needed
+4. Contact support through the app's feedback feature
+
+## 🎉 Getting Started Checklist
+
+- [ ] Download/clone the project
+- [ ] Open `index.html` in browser
+- [ ] Create your first routine
+- [ ] Mark it complete
+- [ ] Check your progress
+- [ ] Customize settings
+- [ ] Export your data as backup
+- [ ] Start building habits!
+
+---
+
+**Happy Routine Tracking! 🎯**
+
+Remember: Small consistent actions lead to big results over time.
+Start today, track tomorrow, celebrate next month! 🚀

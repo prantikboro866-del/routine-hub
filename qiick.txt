@@ -1,0 +1,133 @@
+📝 DAILY ROUTINE TRACKER - QUICK START GUIDE
+=============================================
+
+✅ WHAT YOU HAVE:
+- Complete web application for tracking daily routines
+- HTML, CSS, JavaScript (works offline)
+- Optional PHP/MySQL backend
+- Beautiful dark theme UI
+- Mobile-responsive design
+
+🚀 TO GET STARTED:
+
+1. OPEN THE APP
+   - Simply open "index.html" in your web browser
+   - Or run a local server: python -m http.server 8000
+   - Then visit http://localhost:8000
+
+2. CREATE YOUR FIRST ROUTINE
+   - Click "➕ Add Routine"
+   - Fill in the details:
+     * Title: e.g., "Morning Meditation"
+     * Description: What you'll do
+     * Category: Choose a category
+     * Date: When to do it
+     * Time: What time
+     * Frequency: Once, Daily, Weekly, Monthly
+   - Click "Save Routine"
+
+3. TRACK YOUR PROGRESS
+   - Go to Dashboard to see today's routines
+   - Click "Mark Complete" when you finish a routine
+   - View your progress on the "Track Progress" page
+
+4. MANAGE YOUR DATA
+   - View all routines on "My Routines" page
+   - Use filters to find specific routines
+   - Export your data as JSON or CSV in Settings
+   - Import data from backups
+
+📁 PROJECT FILES:
+- index.html ............. Main dashboard/home page
+- add-routine.html ....... Create/edit routines
+- view-routines.html .... View all routines with filters
+- track-progress.html ... View analytics & progress
+- settings.html ......... User settings & preferences
+- styles.css ............ All styling (responsive)
+- script.js ............ All JavaScript logic
+- api.php .............. PHP backend (optional)
+- database.sql ......... MySQL schema (optional)
+- setup.html ........... Interactive setup guide
+- README.md ............ Full documentation
+
+🎯 FEATURES:
+✓ Create unlimited routines
+✓ Set daily, weekly, or monthly schedules
+✓ Track completion status
+✓ View analytics and progress charts
+✓ Export data as JSON/CSV
+✓ Import/restore from backups
+✓ Category-based organization
+✓ Responsive mobile design
+✓ Dark theme UI
+✓ 100% offline capable
+✓ All data stored locally
+✓ No signup required
+
+💾 DATA STORAGE:
+- By default: Browser's local storage (no server needed)
+- Optional: MySQL database with PHP backend
+- All data is yours, no cloud tracking
+
+🌐 BROWSER SUPPORT:
+✓ Chrome/Edge (Latest)
+✓ Firefox (Latest)
+✓ Safari (Latest)
+✓ Mobile browsers
+
+🔧 OPTIONAL: DATABASE SETUP
+If you want MySQL backend:
+
+1. Create database:
+   mysql -u root -p
+   CREATE DATABASE routine_tracker;
+   USE routine_tracker;
+   SOURCE database.sql;
+
+2. Edit api.php with your credentials
+
+3. Copy all files to web server
+
+💡 TIPS:
+- Start with 3-5 routines
+- Set consistent times
+- Review progress weekly
+- Backup your data regularly
+- Build one habit at a time
+
+❓ QUICK FAQ:
+
+Q: Do I need to install anything?
+A: No! Just open index.html
+
+Q: Where is my data stored?
+A: In your browser (local storage), completely private
+
+Q: Can I use this offline?
+A: Yes! It works fully offline
+
+Q: Can I use this on mobile?
+A: Yes! It's fully responsive
+
+Q: How do I backup my data?
+A: Settings → Data Management → Export Data
+
+Q: Can multiple users share the same device?
+A: Each person can use their own name in settings
+
+🚀 READY TO START?
+1. Open index.html
+2. Click "⚙️ Settings" and enter your name
+3. Click "➕ Add Routine" to create your first routine
+4. Start tracking!
+
+📊 SAMPLE DAILY ROUTINE:
+06:00 - Morning Meditation (Mindfulness)
+07:00 - Exercise (Health & Fitness)
+12:00 - Lunch Break (Self-Care)
+20:00 - Reading (Learning)
+22:00 - Journaling (Personal Development)
+
+🎉 BUILD BETTER HABITS, ONE ROUTINE AT A TIME!
+
+For more help, open setup.html or read README.md

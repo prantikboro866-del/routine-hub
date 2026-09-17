@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Routines - Daily Routine Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>📝 Routine Hub</h2>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html" class="nav-link">🏠 Dashboard</a></li>
+                    <li><a href="add-routine.html" class="nav-link">➕ Add Routine</a></li>
+                    <li><a href="view-routines.html" class="nav-link active">📋 My Routines</a></li>
+                    <li><a href="track-progress.html" class="nav-link">📊 Track Progress</a></li>
+                    <li><a href="settings.html" class="nav-link">⚙️ Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div class="header-top">
+                    <h1>📋 My Routines</h1>
+                    <a href="add-routine.html" class="btn btn-primary">+ New Routine</a>
+                </div>
+            </header>
+
+            <section class="dashboard">
+                <!-- Filter Section -->
+                <div class="dashboard-section">
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <input type="text" id="search-box" placeholder="Search routines..." style="
+                                flex: 1;
+                                min-width: 200px;
+                                padding: 12px;
+                                background: var(--card-bg);
+                                border: 1px solid var(--border-color);
+                                border-radius: 6px;
+                                color: var(--text-primary);
+                            " onkeyup="filterRoutines()">
+                        <select id="category-filter" style="
+                            padding: 12px;
+                            background: var(--card-bg);
+                            border: 1px solid var(--border-color);
+                            border-radius: 6px;
+                            color: var(--text-primary);
+                        " onchange="filterRoutines()">
+                            <option value="">All Categories</option>
+                            <option value="Health">🏃 Health & Fitness</option>
+                            <option value="Work">💼 Work & Productivity</option>
+                            <option value="Learning">📚 Learning</option>
+                            <option value="Personal">🎨 Personal Development</option>
+                            <option value="Mindfulness">🧘 Mindfulness</option>
+                            <option value="Other">📌 Other</option>
+                        </select>
+                        <select id="status-filter" style="
+                            padding: 12px;
+                            background: var(--card-bg);
+                            border: 1px solid var(--border-color);
+                            border-radius: 6px;
+                            color: var(--text-primary);
+                        " onchange="filterRoutines()">
+                            <option value="">All Status</option>
+                            <option value="completed">✓ Completed</option>
+                            <option value="pending">○ Pending</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Routines List -->
+                <div class="dashboard-section">
+                    <div id="all-routines" class="routines-list">
+                        <p class="empty-state">Loading routines...</p>
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div class="dashboard-section">
+                    <h2 class="section-title">📊 Statistics</h2>
+                    <div class="stats-container">
+                        <div class="stat-box">
+                            <h3>Total Routines</h3>
+                            <p id="total-count">0</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Completed</h3>
+                            <p id="completed-count">0</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Pending</h3>
+                            <p id="pending-count">0</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Success Rate</h3>
+                            <p id="success-rate">0%</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            loadRoutinesFromDB();
+            loadAllRoutines();
+            updateRoutinesStats();
+        });
+
+        function filterRoutines() {
+            const searchTerm = document.getElementById('search-box').value.toLowerCase();
+            const categoryFilter = document.getElementById('category-filter').value;
+            const statusFilter = document.getElementById('status-filter').value;
+
+            let filtered = routines.filter(routine => {
+                const matchesSearch = routine.title.toLowerCase().includes(searchTerm) ||
+                    routine.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = !categoryFilter || routine.category === categoryFilter;
+                const matchesStatus = !statusFilter ||
+                    (statusFilter === 'completed' && routine.completed) ||
+                    (statusFilter === 'pending' && !routine.completed);
+
+                return matchesSearch && matchesCategory && matchesStatus;
+            });
+
+            const container = document.getElementById('all-routines');
+            if (filtered.length === 0) {
+                container.innerHTML = '<p class="empty-state">No routines match your filters.</p>';
+                return;
+            }
+
+            const sorted = [...filtered].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            container.innerHTML = sorted.map(routine => `
+                <div class="routine-card ${routine.completed ? 'completed' : ''}">
+                    <div class="routine-info">
+                        <div class="routine-name">${sanitize(routine.title)}</div>
+                        <div class="routine-meta">
+                            <span>📅 ${new Date(routine.date).toLocaleDateString()}</span>
+                            <span>⏰ ${routine.time || 'No time'}</span>
+                            <span>📍 ${sanitize(routine.category) || 'General'}</span>
+                            <span>🔄 ${routine.frequency || 'Once'}</span>
+                        </div>
+                        <p style="margin-top: 8px; color: var(--text-secondary);">${sanitize(routine.description)}</p>
+                    </div>
+                    <div class="routine-actions">
+                        <button class="btn btn-primary btn-small" onclick="markRoutineComplete(${routine.id})">
+                            ${routine.completed ? '✓ Completed' : 'Complete'}
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="editRoutine(${routine.id})">Edit</button>
+                        <button class="btn btn-danger btn-small" onclick="deleteRoutine(${routine.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateRoutinesStats() {
+            const total = routines.length;
+            const completed = routines.filter(r => r.completed).length;
+            const pending = total - completed;
+
+            document.getElementById('total-count').textContent = total;
+            document.getElementById('completed-count').textContent = completed;
+            document.getElementById('pending-count').textContent = pending;
+            document.getElementById('success-rate').textContent = total > 0 ? Math.round((completed / total) * 100) + '%' : '0%';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Daily Routine Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>📝 Routine Hub</h2>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html" class="nav-link">🏠 Dashboard</a></li>
+                    <li><a href="add-routine.html" class="nav-link">➕ Add Routine</a></li>
+                    <li><a href="view-routines.html" class="nav-link">📋 My Routines</a></li>
+                    <li><a href="track-progress.html" class="nav-link">📊 Track Progress</a></li>
+                    <li><a href="settings.html" class="nav-link active">⚙️ Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div class="header-top">
+                    <h1>⚙️ Settings</h1>
+                </div>
+            </header>
+
+            <section class="dashboard">
+                <!-- Profile Settings -->
+                <div class="dashboard-section" style="max-width: 600px;">
+                    <h2 class="section-title">👤 Profile Settings</h2>
+                    <form onsubmit="saveSettings(event)">
+                        <div class="form-group">
+                            <label for="user-name">Your Name</label>
+                            <input 
+                                type="text" 
+                                id="user-name" 
+                                placeholder="Enter your name"
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">✓ Save Changes</button>
+                    </form>
+                </div>
+
+                <!-- App Preferences -->
+                <div class="dashboard-section" style="max-width: 600px;">
+                    <h2 class="section-title">🎨 Appearance</h2>
+                    <div class="form-group">
+                        <label>Theme</label>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <button class="btn btn-secondary" style="flex: 1;" onclick="setTheme('dark')">
+                                🌙 Dark (Current)
+                            </button>
+                            <button class="btn btn-secondary" style="flex: 1;" onclick="alert('Light theme coming soon!')">
+                                ☀️ Light
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications -->
+                <div class="dashboard-section" style="max-width: 600px;">
+                    <h2 class="section-title">🔔 Notifications</h2>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--card-bg); border-radius: 6px; border: 1px solid var(--border-color);">
+                            <label style="cursor: pointer;">Daily Reminders</label>
+                            <input type="checkbox" id="daily-reminders" checked style="cursor: pointer;">
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--card-bg); border-radius: 6px; border: 1px solid var(--border-color);">
+                            <label style="cursor: pointer;">Completion Alerts</label>
+                            <input type="checkbox" id="completion-alerts" checked style="cursor: pointer;">
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--card-bg); border-radius: 6px; border: 1px solid var(--border-color);">
+                            <label style="cursor: pointer;">Weekly Summary</label>
+                            <input type="checkbox" id="weekly-summary" checked style="cursor: pointer;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Management -->
+                <div class="dashboard-section" style="max-width: 600px;">
+                    <h2 class="section-title">💾 Data Management</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        <button class="btn btn-primary" onclick="exportData()">
+                            📤 Export Data
+                        </button>
+                        <button class="btn btn-secondary" onclick="document.getElementById('import-file').click()">
+                            📥 Import Data
+                        </button>
+                        <input 
+                            type="file" 
+                            id="import-file" 
+                            accept=".json" 
+                            style="display: none;" 
+                            onchange="importData(event)"
+                        >
+                        <button class="btn btn-danger" onclick="clearAllData()">
+                            🗑️ Clear All Data
+                        </button>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9em;">
+                        💡 Regularly backup your data to prevent loss
+                    </p>
+                </div>
+
+                <!-- About -->
+                <div class="dashboard-section" style="max-width: 600px;">
+                    <h2 class="section-title">ℹ️ About</h2>
+                    <div style="padding: 20px; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color);">
+                        <p style="margin-bottom: 10px;"><strong>Daily Routine Tracker v1.0</strong></p>
+                        <p style="color: var(--text-secondary); margin-bottom: 15px;">
+                            A simple yet powerful web application to track your daily routines and build consistent habits.
+                        </p>
+                        <div style="padding: 15px; background: rgba(46, 204, 113, 0.1); border-radius: 6px; border-left: 4px solid var(--primary-color);">
+                            <p style="color: var(--text-secondary); font-size: 0.9em;">
+                                <strong>Features:</strong>
+                                <br>✓ Create and manage daily routines
+                                <br>✓ Track completion status
+                                <br>✓ View progress analytics
+                                <br>✓ Export/Import data
+                                <br>✓ Category-based organization
+                                <br>✓ Offline-first technology
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Help & Support -->
+                <div class="dashboard-section" style="max-width: 600px;">
+                    <h2 class="section-title">❓ Help & Support</h2>
+                    <div style="padding: 20px; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color);">
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--primary-color); margin-bottom: 10px;">Getting Started</h4>
+                            <ul style="list-style: none; color: var(--text-secondary); line-height: 1.8;">
+                                <li>1️⃣ Click "Add Routine" to create your first routine</li>
+                                <li>2️⃣ Set a title, time, and category for your routine</li>
+                                <li>3️⃣ Mark routines as complete as you finish them</li>
+                                <li>4️⃣ Track progress in the "Track Progress" section</li>
+                            </ul>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="color: var(--primary-color); margin-bottom: 10px;">Tips & Tricks</h4>
+                            <ul style="list-style: none; color: var(--text-secondary); line-height: 1.8;">
+                                <li>💡 Start with small, achievable routines</li>
+                                <li>💡 Schedule routines at consistent times</li>
+                                <li>💡 Use categories to organize your routines</li>
+                                <li>💡 Review your progress weekly for motivation</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary" onclick="openFeedback()" style="width: 100%;">
+                            📧 Send Feedback
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Security -->
+                <div class="dashboard-section" style="max-width: 600px;">
+                    <h2 class="section-title">🔒 Privacy & Security</h2>
+                    <div style="padding: 20px; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color);">
+                        <p style="color: var(--text-secondary); margin-bottom: 15px;">
+                            Your data is stored locally in your browser. No information is sent to external servers.
+                        </p>
+                        <div style="padding: 15px; background: rgba(46, 204, 113, 0.1); border-radius: 6px; border-left: 4px solid var(--primary-color);">
+                            <p style="color: var(--text-secondary); font-size: 0.9em;">
+                                <strong>Privacy Highlights:</strong>
+                                <br>✓ 100% client-side storage
+                                <br>✓ No tracking or analytics
+                                <br>✓ Your data is yours only
+                                <br>✓ Clear local storage anytime
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSettingsPage();
+        });
+
+        function setTheme(theme) {
+            localStorage.setItem('theme', theme);
+            showNotification('Theme updated! ✓');
+        }
+
+        function clearAllData() {
+            if (confirm('⚠️ This will delete ALL your routines. This action cannot be undone. Are you sure?')) {
+                localStorage.clear();
+                showNotification('All data cleared! Reloading...');
+                setTimeout(() => location.reload(), 1500);
+            }
+        }
+
+        function openFeedback() {
+            alert('📧 Thank you for using Daily Routine Tracker!\n\nYour feedback helps us improve. Please share your thoughts and suggestions.');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Routine Tracker - My Digital Diary</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>📝 Routine Hub</h2>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html" class="nav-link active">🏠 Dashboard</a></li>
+                    <li><a href="add-routine.html" class="nav-link">➕ Add Routine</a></li>
+                    <li><a href="view-routines.html" class="nav-link">📋 My Routines</a></li>
+                    <li><a href="track-progress.html" class="nav-link">📊 Track Progress</a></li>
+                    <li><a href="settings.html" class="nav-link">⚙️ Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-top">
+                    <h1 id="greeting">Good Morning!</h1>
+                    <span id="current-date" class="current-date"></span>
+                </div>
+                <div class="header-info">
+                    <p id="username" class="username">Welcome back!</p>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <section class="dashboard">
+                <!-- Today's Summary -->
+                <div class="dashboard-section">
+                    <h2 class="section-title">📅 Today's Summary</h2>
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <div class="card-stat">
+                                <span class="stat-number" id="total-routines">0</span>
+                                <span class="stat-label">Total Routines</span>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-stat">
+                                <span class="stat-number" id="completed-routines">0</span>
+                                <span class="stat-label">Completed</span>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-stat">
+                                <span class="stat-number" id="completion-rate">0%</span>
+                                <span class="stat-label">Completion Rate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Today's Routines -->
+                <div class="dashboard-section">
+                    <h2 class="section-title">📌 Today's Routines</h2>
+                    <div id="today-routines" class="routines-list">
+                        <p class="empty-state">No routines for today. <a href="add-routine.html">Add one now</a></p>
+                    </div>
+                </div>
+
+                <!-- Upcoming This Week -->
+                <div class="dashboard-section">
+                    <h2 class="section-title">📆 This Week</h2>
+                    <div class="weekly-view">
+                        <div id="weekly-routines" class="weekly-grid">
+                            <p class="empty-state">No routines scheduled</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="dashboard-section">
+                    <h2 class="section-title">📈 Your Stats</h2>
+                    <div class="stats-container">
+                        <div class="stat-box">
+                            <h3>This Week</h3>
+                            <p id="weekly-stats">0 routines completed</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>This Month</h3>
+                            <p id="monthly-stats">0 routines completed</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Streak</h3>
+                            <p id="streak-stats">0 days</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for Quick Add -->
+    <div id="quickAddModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Quick Complete</h2>
+            <p id="modal-routine-name"></p>
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="confirmRoutineCompletion()">✓ Mark Complete</button>
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
